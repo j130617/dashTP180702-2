@@ -78,15 +78,17 @@ var chartOmzet = d3.select("body")
 
 // Define the line
 var omzetline = d3.line()	
-    .x(function(d) { return xl(d.jaar); })
-    .y(function(d) { return yl(d.omzet); });
+    .xl(function(d) { return xl(d.jaar); })
+    .yl(function(d) { return yl(d.omzet); });
     
 
 // Get the data
 d3.csv("omzet.csv", function(error, data) {
-    data.forEach(function(d) {
-	//d.date = parseDate(d.date);
-	d.omzet = +d.omzet;
+    if (error) throw error;
+  // format the data
+  data.forEach(function(d) {
+      //d.date = parseDate(d.date);
+      d.omzet = +d.omzet;
     });
 
     // Scale the range of the data
