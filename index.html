@@ -54,6 +54,19 @@ var xb = d3.scaleBand()
 var yb = d3.scaleLinear()
         .range([height, 0]);
 	
+	// The number of datapoints linechart
+var n = 5;
+
+// 5. X scale will use the index of our data
+var xScale = d3.scaleLinear()
+    .domain([0, n+1]) // input
+    .range([0, width]); // output
+
+// 6. Y scale will use the randomly generate number 
+var yScale = d3.scaleLinear()
+    .domain([0, 1]) // input 
+    .range([height, 0]); // output 
+
 	// ranges line chart//
 var xl = d3.scaleTime()
 	.range([0, width]);  
@@ -83,8 +96,8 @@ var chartOmzet = d3.select("body").append("svg")
 
 // Define the line
 var omzetline = d3.line()	
-    .x(function(d) { return xl(d.jaar); })
-    .y(function(d) { return yl(d.omzet); });
+    .x(function(d) { return xScale(d.jaar); })
+    .y(function(d) { return yScale(d.omzet); });
     
 
 // Get the data
@@ -93,7 +106,7 @@ d3.csv("omzet.csv", function(error, data) {
 
   data.forEach(function(d) {
       //d.jaar = parseDate(d.jaar);
-      d.jaar = +d.jaar;
+      //d.jaar = +d.jaar;
       d.omzet = +d.omzet;
     });
 
