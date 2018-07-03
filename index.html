@@ -92,7 +92,8 @@ d3.csv("omzet.csv", function(error, data) {
     if (error) throw error;
   // format the data
   data.forEach(function(d) {
-      d.date = parseDate(d.date);
+      //d.jaar = parseDate(d.jaar);
+      d.jaar = +d.jaar;
       d.omzet = +d.omzet;
     });
 
