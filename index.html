@@ -1,1 +1,68 @@
+<!DOCTYPE html>
+<meta charset="utf-8">
+<style> /* set the CSS */
+body { font: 12px Arial;}
+	/* opmaak linechart*/
+path { 
+    stroke: steelblue;
+    stroke-width: 2;
+    fill: none;
+}
+.axis path,
+.axis line {
+    fill: none;
+    stroke: grey;
+    stroke-width: 1;
+    shape-rendering: crispEdges;
+}
+	/*opmaak legenda*/
+.legend {
+    font-size: 12px;
+    /*font-weight: bold;*/
+    text-anchor: middle;
+}
+	/* opmaak barchart*/
+.bar { fill: steelblue; }
+	/* opmaak tabel*/
+th { text-align: left; }
+/*th, td { padding: 1px 4px;}*/
+th, td { padding: 0 1em 0.5ex 0;}
+th.center, td.center { text-align: center; }
+/*th.num, td.num { text-align: center; }*/
+th.num, td.num { text-align: right; }
+	
+</style>
+<body>
+	
+<!-- load the d3.js library -->    	
+<script src="//d3js.org/d3.v4.min.js"></script>
+<script>
+	// Set the dimensions of the canvas / graph
+//var margin = {top: 10, right: 20, bottom: 40, left: 50},//
+var margin = {top: 40, right: 50, bottom: 50, left: 75},
+    width = 500 - margin.left - margin.right,
+    height = 275 - margin.top - margin.bottom;
+// set the ranges REGULIER xb en yb = bar chart /  xl en yl = line graph / xbg, ybg en zbg = bar chart grouped
+	// ranges bar chart // 
+var xb = d3.scaleBand()
+        .range([0, width])
+        .padding(0.1);
+var yb = d3.scaleLinear()
+        .range([height, 0]);
+	// ranges line chart//
+var xl = d3.scaleTime()
+	.range([0, width]);  
+var yl = d3.scaleLinear()
+	.range([height, 0]);
+	// ranges grouped bar chart//
+var xbg0 = d3.scaleBand()
+    .rangeRound([0, width])
+    .paddingInner(0.1);
+var xbg1 = d3.scaleBand()
+    .padding(0.05);
+var ybg = d3.scaleLinear()
+    .rangeRound([height, 0]);
+var zbg = d3.scaleOrdinal()
+    .range(["#98abc5", "#8a89a6"]);
+  
 
