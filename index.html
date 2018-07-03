@@ -55,7 +55,8 @@ var yb = d3.scaleLinear()
         .range([height, 0]);
 	
 	// ranges line chart//
-var xl = d3.scaleTime()
+var xl = d3.scaleBand()
+	 //d3.scaleTime()
 	.range([0, width]);  
 var yl = d3.scaleLinear()
 	.range([height, 0]);
