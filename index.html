@@ -54,22 +54,10 @@ var xb = d3.scaleBand()
 var yb = d3.scaleLinear()
         .range([height, 0]);
 	
-	// The number of datapoints linechart
-var n = 6;
-
-// 5. X scale will use the index of our data
-var xScale = d3.scaleLinear()
-    .domain([1, n+1]) // input
-    .range([1, width]); // output
-
-// 6. Y scale will use the randomly generate number 
-var yScale = d3.scaleLinear()
-    .domain([1, 1]) // input 
-    .range([height, 0]); // output 
 
 	// ranges line chart//
 var xl = d3.scaleTime()
-	.range([0, width]);  
+	.range([1, width]);  
 var yl = d3.scaleLinear()
 	.range([height, 0]);
 	
@@ -96,8 +84,8 @@ var chartOmzet = d3.select("body").append("svg")
 
 // Define the line
 var omzetline = d3.line()	
-    .x(function(d) { return xScale(d.jaar); })
-    .y(function(d) { return yScale(d.omzet); });
+    .x(function(d) { return xl(d.jaar); })
+    .y(function(d) { return yl(d.omzet); });
     
 
 // Get the data
@@ -111,8 +99,8 @@ d3.csv("omzet.csv", function(error, data) {
     });
 
     // Scale the range of the data
-    xScale.domain(d3.extent(data, function(d) { return d.jaar; }));
-    yScale.domain([0, d3.max(data, function(d) { return d.omzet; })]);
+    xl.domain(d3.extent(data, function(d) { return d.jaar; }));
+    yl.domain([0, d3.max(data, function(d) { return d.omzet; })]);
 
     // Nest the entries by symbol
     var dataNest = d3.nest()
@@ -148,12 +136,12 @@ d3.csv("omzet.csv", function(error, data) {
     chartOmzet.append("g")
       .attr("class", "axis")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(xScale));
+      .call(d3.axisBottom(xl));
 
     // Add the Y Axis
     chartOmzet.append("g")
       .attr("class", "axis")
-      .call(d3.axisLeft(yScale));
+      .call(d3.axisLeft(yl));
   
     // Add a small label for the graph name.
     chartOmzet.append("text")
