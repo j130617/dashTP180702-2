@@ -89,6 +89,8 @@ var omzetline = d3.line()
 
 // Get the data
 d3.csv("omzet.csv", function(error, data) {
+  if (error) throw error;
+
   data.forEach(function(d) {
       //d.jaar = parseDate(d.jaar);
       d.jaar = +d.jaar;
