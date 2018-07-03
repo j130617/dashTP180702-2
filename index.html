@@ -55,8 +55,7 @@ var yb = d3.scaleLinear()
         .range([height, 0]);
 	
 	// ranges line chart//
-var xl = d3.scaleBand()
-	 //d3.scaleTime()
+var xl = d3.scaleTime()
 	.range([0, width]);  
 var yl = d3.scaleLinear()
 	.range([height, 0]);
@@ -93,8 +92,8 @@ d3.csv("omzet.csv", function(error, data) {
     if (error) throw error;
   // format the data
   data.forEach(function(d) {
-      //d.jaar = parseDate(d.jaar);
-      d.jaar = +d.jaar;
+      d.jaar = parseDate(d.jaar);
+      //d.jaar = +d.jaar;
       d.omzet = +d.omzet;
     });
 
