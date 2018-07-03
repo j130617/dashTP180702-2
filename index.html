@@ -68,7 +68,7 @@ var zbg = d3.scaleOrdinal()
 	
 	//----------------------------------------------------------------------------------->>>>CHART1  
 // Adds the linechart canvas
-var linechart = d3.select("body")
+var chartOmzet = d3.select("body")
     .append("svg")
         .attr("width", width + margin.left + margin.right)
         .attr("height", height + margin.top + margin.bottom)
@@ -77,21 +77,21 @@ var linechart = d3.select("body")
               "translate(" + margin.left + "," + margin.top + ")");
 
 // Define the line
-var priceline = d3.line()	
-    .x(function(d) { return xl(d.date); })
-    .y(function(d) { return yl(d.price); });
+var omzetline = d3.line()	
+    .x(function(d) { return xl(d.jaar); })
+    .y(function(d) { return yl(d.omzet); });
     
 
 // Get the data
-d3.csv("stocks.csv", function(error, data) {
+d3.csv("omzet.csv", function(error, data) {
     data.forEach(function(d) {
 	//d.date = parseDate(d.date);
-	d.price = +d.price;
+	d.omzet = +d.omzet;
     });
 
     // Scale the range of the data
-    xl.domain(d3.extent(data, function(d) { return d.date; }));
-    yl.domain([0, d3.max(data, function(d) { return d.price; })]);
+    xl.domain(d3.extent(data, function(d) { return d.jaar; }));
+    yl.domain([0, d3.max(data, function(d) { return d.omzet; })]);
 
     // Nest the entries by symbol
     var dataNest = d3.nest()
@@ -106,14 +106,14 @@ d3.csv("stocks.csv", function(error, data) {
     // Loop through each symbol / key
     dataNest.forEach(function(d,i) { 
 
-        linechart.append("path")
+        chartOmzet.append("path")
             .attr("class", "line")
 	    .style("stroke", function() { // Add the colours dynamically
                 return d.color = color(d.key); })
-            .attr("d", priceline(d.values));
+            .attr("d", omzetline(d.values));
         
 	// Add the Legend ORIGINEEL
-        linechart.append("text")
+        chartOmzet.append("text")
             .attr("x", (legendSpace/2)+i*legendSpace)  // space legend
             .attr("y", height + (margin.bottom/2)+ 15)
             .attr("class", "legend")    // style the legend
@@ -124,25 +124,25 @@ d3.csv("stocks.csv", function(error, data) {
     });
 
     // Add the X Axis
-    linechart.append("g")
+    chartOmzet.append("g")
       .attr("class", "axis")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(xl));
 
     // Add the Y Axis
-    linechart.append("g")
+    chartOmzet.append("g")
       .attr("class", "axis")
       .call(d3.axisLeft(yl));
   
     // Add a small label for the graph name.
-    linechart.append("text")
+    chartOmzet.append("text")
       .attr("class", "title")
       .attr("x", 10)
-      .attr("y", 5)
+      .attr("y", -10)
       .attr("font-weight", "bold")
       .style("text-anchor", "start")
       .style("font-size", 10)
-      .text("TEST (mln €)");  
+      .text("Omzet naar activiteiten (mln €)");  
 });
 	
 </script>
