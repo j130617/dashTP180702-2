@@ -111,8 +111,8 @@ d3.csv("omzet.csv", function(error, data) {
     });
 
     // Scale the range of the data
-    xl.domain(d3.extent(data, function(d) { return d.jaar; }));
-    yl.domain([0, d3.max(data, function(d) { return d.omzet; })]);
+    xScale.domain(d3.extent(data, function(d) { return d.jaar; }));
+    yScale.domain([0, d3.max(data, function(d) { return d.omzet; })]);
 
     // Nest the entries by symbol
     var dataNest = d3.nest()
@@ -148,12 +148,12 @@ d3.csv("omzet.csv", function(error, data) {
     chartOmzet.append("g")
       .attr("class", "axis")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(xl));
+      .call(d3.axisBottom(xScale));
 
     // Add the Y Axis
     chartOmzet.append("g")
       .attr("class", "axis")
-      .call(d3.axisLeft(yl));
+      .call(d3.axisLeft(yScale));
   
     // Add a small label for the graph name.
     chartOmzet.append("text")
