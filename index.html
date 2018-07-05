@@ -224,13 +224,13 @@ d3.csv("profit.csv", function(d, i, columns) {
                     .attr("width", 36)
     
   legend.append("rect")
-          .attr("x", function(d,i){return (width +(150*i)+70)})
+          .attr("x", function(d,i){return (width +(150*i)+50)})
           .attr("width", 12)
           .attr("height", 12)
           .style("fill", zbg);
           
   legend.append("text")
-          .attr("x", function(d,i){return (width +(150*i)+125)})
+          .attr("x", function(d,i){return (width +(150*i)+115)})
           .attr("y", 5)
           .attr("dy", ".32em")
           .text(function(d) { return d; });
