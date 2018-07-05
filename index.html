@@ -153,6 +153,108 @@ d3.csv("omzet.csv", function(error, data) {
       .style("font-size", 10)
       .text("Omzet naar activiteiten (mln €)");  
 });
-	
+
+		//------------------------------------------------------------------>>>>> CHART2
+	// Adds the chartOmzetMdw to canvas
+var chartProfit = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", 
+	  "translate(" + margin.left + "," + margin.top + ")");
+	// get the data //
+d3.csv("profit.csv", function(d, i, columns) {
+  for (var i = 1, n = columns.length; i < n; ++i) d[columns[i]] = +d[columns[i]];
+  return d;
+}, function(error, data) {
+  if (error) throw error;
+  var keys = data.columns.slice(1);
+	// Scale the range of the data
+  xbg0.domain(data.map(function(d) { return d.jaar; }));
+  xbg1.domain(keys).rangeRound([0, xbg0.bandwidth()]);
+  ybg.domain([0, d3.max(data, function(d) { return d3.max(keys, function(key) { return d[key]; }); })]).nice();
+  
+  
+  chartProfit.append("g")
+    .selectAll("g")
+    .data(data)
+    .enter().append("g")
+      .attr("transform", function(d) { return "translate(" + xbg0(d.jaar) + ",0)"; })
+    .selectAll("rect")
+    .data(function(d) { return keys.map(function(key) { return {key: key, value: d[key]}; }); })
+    .enter().append("rect")
+      .attr("x", function(d) { return xbg1(d.key); })
+      .attr("y", function(d) { return ybg(d.value); })
+      .attr("width", xbg1.bandwidth())
+      .attr("height", function(d) { return height - ybg(d.value); })
+      .attr("fill", function(d) { return zbg(d.key); });
+  
+  	// Add the X Axis
+  chartProfit.append("g")
+      .attr("class", "axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(xbg0));
+  
+	// Add the Y Axis
+  chartProfit.append("g")
+      .attr("class", "axis")
+      .call(d3.axisLeft(ybg));
+  
+     	// Add a small label for the graph name.
+  chartProfit.append("text")
+      .attr("class", "title")
+      .attr("x", 10)
+      .attr("y", -10)
+      .attr("font-weight", "bold")
+      .style("text-anchor", "start")
+      .style("font-size", 9)
+      .text("Omzet per fte/mdw (x € 1.000)");   
+  
+  var legendHolder = chartProfit.append('g')
+      // translate the holder to the right side of the graph
+      .attr('transform', "translate(" + (-width) + "," + (+margin.bottom*4.15) + ")")
+      .attr('class','legendHolder')
+      
+  var legend = legendHolder.selectAll(".legend")
+                    //.data(keys.slice().reverse())
+  		    .data(keys.slice())
+                    .enter().append("g")
+                    .attr("class", "legend")
+                    .attr('transform', function(d, i) { return "translate(" + -40*i + "," + 0 + ")"; })
+                    .attr("width", 36)
+    
+  legend.append("rect")
+          .attr("x", function(d,i){return (width +(150*i)+80)})
+          .attr("width", 12)
+          .attr("height", 12)
+          .style("fill", zbg);
+          
+  legend.append("text")
+          .attr("x", function(d,i){return (width +(150*i)+115)})
+          .attr("y", 5)
+          .attr("dy", ".32em")
+          .text(function(d) { return d; });
+  
+  /*var legend = chartOmzetMdw.append("g")
+      .attr("font-family", "sans-serif")
+      .attr("font-size", 9)
+      .attr("text-anchor", "start")
+    .selectAll("g")
+    .data(keys.slice().reverse())
+    .enter().append("g")
+      .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+  
+  legend.append("rect")
+      .attr("x", width - 19)
+      .attr("width", 19)
+      .attr("height", 19)
+      .attr("fill", zbg);
+  
+  legend.append("text")
+      .attr("x", width - 24)
+      .attr("y", 5)
+      .attr("dy", "0.32em")
+      .text(function(d) { return d; });*/
+});
 </script>
 </body>
