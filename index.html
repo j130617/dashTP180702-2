@@ -198,7 +198,7 @@ d3.csv("profit.csv", function(d, i, columns) {
 	// Add the Y Axis
   chartProfit.append("g")
       .attr("class", "axis")
-      .call(d3.axisLeft(ybg));
+      .call(d3.axisLeft(ybg).ticks(10, "%"));
   
      	// Add a small label for the graph name.
   chartProfit.append("text")
@@ -282,7 +282,7 @@ d3.csv("return.csv", function(d, i, columns) {
 	// Add the Y Axis
   chartReturn.append("g")
       .attr("class", "axis")
-      .call(d3.axisLeft(ybg));
+      .call(d3.axisLeft(ybg).ticks(10, "%"));
   
      	// Add a small label for the graph name.
   chartReturn.append("text")
