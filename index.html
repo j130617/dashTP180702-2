@@ -321,6 +321,60 @@ d3.csv("return.csv", function(d, i, columns) {
   
   
 });
+
+	//------------------------------------------------------------------>>>>> CHART4
+	// Adds the chartOmzet canvas          
+var chartDSO = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", 
+	  "translate(" + margin.left + "," + margin.top + ")");
+	// Get the data
+d3.csv("dso.csv", function(error, data) {
+  if (error) throw error;
+  
+  	// format the data
+  data.forEach(function(d) {
+    d.dso = +d.dso;
+  });
+	
+  	// Scale the range of the data in the domains
+  xb.domain(data.map(function(d) { return d.jaar; }));
+  yb.domain([0, d3.max(data, function(d) { return d.dso; })]);	
+  
+	// append the rectangles for the bar chart
+  chartDSO.selectAll(".bar")
+      .data(data)
+    .enter().append("rect")
+      .attr("class", "bar")
+      .attr("x", function(d) { return xb(d.jaar); })
+      .attr("width", xb.bandwidth())
+      .attr("y", function(d) { return yb(d.dso); })
+      .attr("height", function(d) { return height - yb(d.dso); });
+  
+  	// add the xB Axis
+  chartDSO.append("g")
+      .attr("class", "axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(xb));
+  
+  	// add the yB Axis
+  chartDSO.append("g")
+      .attr("class", "axis")  
+      .call(d3.axisLeft(yb));
+  
+	// Add a small label for the graph name.
+  chartDSO.append("text")
+      .attr("class", "title")
+      .attr("x", 10)
+      .attr("y", -10)
+      .attr("font-weight", "bold")
+      .style("text-anchor", "start")
+      .style("font-size", 9)
+      .text("Omzet (x mln €)");  
+   
+});
 	
 </script>
 </body>
