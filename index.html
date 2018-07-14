@@ -137,7 +137,8 @@ d3.csv("omzet.csv", function(error, data) {
     chartOmzet.append("g")
       .attr("class", "axis")
       .attr("transform", "translate(0," + height + ")")
-      .call(d3.axisBottom(xl));
+      .call(d3.axisBottom(xl)
+	   .ticks(d3.timeYear));
 
     // Add the Y Axis
     chartOmzet.append("g")
