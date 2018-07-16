@@ -377,6 +377,91 @@ d3.csv("dso.csv", function(error, data) {
       .text("Aantal dagen klantenkrediet");  
    
 });
+
+		//------------------------------------------------------------------>>>>> CHART2
+	// Adds the chartOmzetMdw to canvas
+var chartShare = d3.select("body").append("svg")
+    .attr("width", width + margin.left + margin.right)
+    .attr("height", height + margin.top + margin.bottom)
+  .append("g")
+    .attr("transform", 
+	  "translate(" + margin.left + "," + margin.top + ")");
 	
+	// get the data //
+d3.csv("share.csv", function(d, i, columns) {
+  for (var i = 1, n = columns.length; i < n; ++i) d[columns[i]] = +d[columns[i]];
+  return d;
+}, function(error, data) {
+  if (error) throw error;
+  var keys = data.columns.slice(1);
+	
+	// Scale the range of the data
+  xbg0.domain(data.map(function(d) { return d.jaar; }));
+  xbg1.domain(keys).rangeRound([0, xbg0.bandwidth()]);
+  ybg.domain([0, d3.max(data, function(d) { return d3.max(keys, function(key) { return d[key]; }); })]).nice();
+  
+  
+  chartShare.append("g")
+    .selectAll("g")
+    .data(data)
+    .enter().append("g")
+      .attr("transform", function(d) { return "translate(" + xbg0(d.jaar) + ",0)"; })
+    .selectAll("rect")
+    .data(function(d) { return keys.map(function(key) { return {key: key, value: d[key]}; }); })
+    .enter().append("rect")
+      .attr("x", function(d) { return xbg1(d.key); })
+      .attr("y", function(d) { return ybg(d.value); })
+      .attr("width", xbg1.bandwidth())
+      .attr("height", function(d) { return height - ybg(d.value); })
+      .attr("fill", function(d) { return zbg(d.key); });
+  
+  	// Add the X Axis
+  chartShare.append("g")
+      .attr("class", "axis")
+      .attr("transform", "translate(0," + height + ")")
+      .call(d3.axisBottom(xbg0));
+  
+	// Add the Y Axis
+  chartShare.append("g")
+      .attr("class", "axis")
+      .call(d3.axisLeft(ybg).ticks(10, "%"));
+  
+     	// Add a small label for the graph name.
+  chartShare.append("text")
+      .attr("class", "title")
+      .attr("x", 10)
+      .attr("y", -10)
+      .attr("font-weight", "bold")
+      .style("text-anchor", "start")
+      .style("font-size", 9)
+      .text("Winstgevendheid");   
+  
+  var legendHolder = chartShare.append('g')
+      // translate the holder to the right side of the graph
+      .attr('transform', "translate(" + (-width) + "," + (+margin.bottom*4.15) + ")")
+      .attr('class','legendHolder')
+      
+  var legend = legendHolder.selectAll(".legend")
+                    //.data(keys.slice().reverse())
+  		    .data(keys.slice())
+                    .enter().append("g")
+                    .attr("class", "legend")
+                    .attr('transform', function(d, i) { return "translate(" + -40*i + "," + 0 + ")"; })
+                    .attr("width", 36)
+    
+  legend.append("rect")
+          .attr("x", function(d,i){return (width +(150*i)+50)})
+          .attr("width", 12)
+          .attr("height", 12)
+          .style("fill", zbg);
+          
+  legend.append("text")
+          .attr("x", function(d,i){return (width +(150*i)+110)})
+          .attr("y", 5)
+          .attr("dy", ".32em")
+          .text(function(d) { return d; });
+  
+  
+});	
 </script>
 </body>
