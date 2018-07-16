@@ -436,7 +436,25 @@ d3.csv("share.csv", function(d, i, columns) {
       .style("font-size", 9)
       .text("Aandeelhouders");   
   
-  var legendHolder = chartShare.append('g')
+    var legend = chartShare.selectAll(".legend")
+        .data(options.slice())
+        .enter().append("g")
+        .attr("class", "legend")
+        .attr("transform", function(d, i) { return "translate(0," + i * 20 + ")"; });
+    legend.append("rect")
+        .attr("x", width + 18)
+        .attr("width", 18)
+        .attr("height", 18)
+        .style("fill", color);
+    legend.append("text")
+        .attr("x", width + 40)
+        .attr("y", 9)
+        .attr("dy", ".35em")
+        .style("text-anchor", "start")
+        .text(function(d) { return d; });
+	
+	
+/*	var legendHolder = chartShare.append('g')
       // translate the holder to the right side of the graph
       .attr('transform', "translate(" + (-width) + "," + (+margin.bottom*4.15) + ")")
       .attr('class','legendHolder')
@@ -459,7 +477,7 @@ d3.csv("share.csv", function(d, i, columns) {
           .attr("x", function(d,i){return (width +(150*i)+40)})
           .attr("y", 5)
           .attr("dy", ".32em")
-          .text(function(d) { return d; });
+          .text(function(d) { return d; }); */
   
   
 });	
