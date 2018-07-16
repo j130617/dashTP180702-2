@@ -450,14 +450,14 @@ var legend = legendHolder.selectAll(".legend")
                     .attr("width", 36)
     
 legend.append("rect")
-          .attr("x", function(d,i){return (width +(150*i)+10)})
-          .attr("width", 5)
+          .attr("x", function(d,i){return (width +(120*i)+10)})
+          .attr("width", 12)
           .attr("height", 12)
           .style("fill", zbg);
           
 legend.append("text")
-          .attr("x", function(d,i){return (width +(150*i)+40)})
-          .attr("y", 3)
+          .attr("x", function(d,i){return (width +(120*i)+50)})
+          .attr("y", 5)
           .attr("dy", ".32em")
           .text(function(d) { return d; }); 
   
