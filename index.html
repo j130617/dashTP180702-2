@@ -441,7 +441,7 @@ var legendHolder = chartShare.append('g')
       .attr('transform', "translate(" + (-width) + "," + (+margin.bottom*4.15) + ")")
       .attr('class','legendHolder')
       
-  var legend = legendHolder.selectAll(".legend")
+var legend = legendHolder.selectAll(".legend")
                     //.data(keys.slice().reverse())
   		    .data(keys.slice())
                     .enter().append("g")
@@ -449,17 +449,17 @@ var legendHolder = chartShare.append('g')
                     .attr('transform', function(d, i) { return "translate(" + -40*i + "," + 0 + ")"; })
                     .attr("width", 36)
     
-  legend.append("rect")
+legend.append("rect")
           .attr("x", function(d,i){return (width +(150*i)+10)})
           .attr("width", 5)
           .attr("height", 12)
           .style("fill", zbg);
           
-  legend.append("text")
+legend.append("text")
           .attr("x", function(d,i){return (width +(150*i)+40)})
           .attr("y", 3)
           .attr("dy", ".32em")
-          .text(function(d) { return d; }); */
+          .text(function(d) { return d; }); 
   
   
 });	
