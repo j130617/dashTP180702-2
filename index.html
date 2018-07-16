@@ -434,7 +434,7 @@ d3.csv("share.csv", function(d, i, columns) {
       .attr("font-weight", "bold")
       .style("text-anchor", "start")
       .style("font-size", 9)
-      .text("Winstgevendheid");   
+      .text("Aandeelhouders");   
   
   var legendHolder = chartShare.append('g')
       // translate the holder to the right side of the graph
@@ -450,13 +450,13 @@ d3.csv("share.csv", function(d, i, columns) {
                     .attr("width", 36)
     
   legend.append("rect")
-          .attr("x", function(d,i){return (width +(150*i)+50)})
+          .attr("x", function(d,i){return (width +(150*i)+20)})
           .attr("width", 12)
           .attr("height", 12)
           .style("fill", zbg);
           
   legend.append("text")
-          .attr("x", function(d,i){return (width +(150*i)+110)})
+          .attr("x", function(d,i){return (width +(150*i)+80)})
           .attr("y", 5)
           .attr("dy", ".32em")
           .text(function(d) { return d; });
