@@ -571,9 +571,9 @@ d3.csv("debt.csv", function(error, data) {
    
 });
 	
-	//------------------------------------------------------------------>>>>> CHART7
-	// Adds the chartDebt canvas          
-var chartSubs = d3.select("body").append("svg")
+	//------------------------------------------------------------------>>>>> CHART8
+	// Adds the chartSubsidie canvas          
+var chartSubsidie = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
     .attr("height", height + margin.top + margin.bottom)
   .append("g")
@@ -593,7 +593,7 @@ d3.csv("subsidie.csv", function(error, data) {
   yb.domain([0, d3.max(data, function(d) { return d.eur; })]);	
   
 	// append the rectangles for the bar chart
-  chartSubs.selectAll(".bar")
+  chartSubsidie.selectAll(".bar")
       .data(data)
     .enter().append("rect")
       .attr("class", "bar")
@@ -603,18 +603,18 @@ d3.csv("subsidie.csv", function(error, data) {
       .attr("height", function(d) { return height - yb(d.eur); });
   
   	// add the xB Axis
-  chartSubs.append("g")
+  chartSubsidie.append("g")
       .attr("class", "axis")
       .attr("transform", "translate(0," + height + ")")
       .call(d3.axisBottom(xb));
   
   	// add the yB Axis
-  chartSubs.append("g")
+  chartSubsidie.append("g")
       .attr("class", "axis")  
       .call(d3.axisLeft(yb));
   
 	// Add a small label for the graph name.
-  chartSubs.append("text")
+  chartSubsidie.append("text")
       .attr("class", "title")
       .attr("x", 10)
       .attr("y", -10)
@@ -624,5 +624,6 @@ d3.csv("subsidie.csv", function(error, data) {
       .text("Overheidssubsidies (x mln €)");  
    
 });
+	
 </script>
 </body>
