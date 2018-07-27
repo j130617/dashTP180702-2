@@ -267,7 +267,7 @@ d3.csv("profit.csv", function(d, i, columns) {
   
 });
 
-		//------------------------------------------------------------------>>>>> CHART3
+		//---------------------------------------------------------------------------------------------->>>>> CHART3
 	// Adds the chartReturn to canvas
 var chartReturn = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -359,7 +359,7 @@ d3.csv("return.csv", function(d, i, columns) {
   
 });
 
-	//------------------------------------------------------------------>>>>> CHART4
+	//------------------------------------------------------------------------------------------------------>>>>> CHART4
 	// Adds the chartOmzet canvas          
 var chartDSO = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -394,7 +394,7 @@ d3.csv("dso.csv", function(error, data) {
               .style("left", d3.event.pageX - 50 + "px")
               .style("top", d3.event.pageY - 70 + "px")
               .style("display", "inline-block")
-              .html((d.jaar) + "<br>" + (d.dso));
+              .html((d.jaar) + "<br>" + (d.dso) + " dagen");
         })
     		.on("mouseout", function(d){ tooltip.style("display", "none");});
   
@@ -421,7 +421,7 @@ d3.csv("dso.csv", function(error, data) {
    
 });
 
-		//------------------------------------------------------------------>>>>> CHART5
+		//------------------------------------------------------------------------------------------>>>>> CHART5
 	// Adds the chartOmzetMdw to canvas
 var chartShare = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -514,7 +514,7 @@ legend.append("text")
 
 });
 	
-	//------------------------------------------------------------------>>>>> CHART6
+	//-------------------------------------------------------------------------------------------------------->>>>> CHART6
 	// Adds the chartOmzet canvas          
 var chartDividend = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -549,7 +549,7 @@ d3.csv("dividend.csv", function(error, data) {
               .style("left", d3.event.pageX - 50 + "px")
               .style("top", d3.event.pageY - 70 + "px")
               .style("display", "inline-block")
-              .html((d.jaar) + "<br>" + "€" + (d.dividend));
+              .html((d.jaar) + "<br>" + "€ " + (d.dividend));
         })
     		.on("mouseout", function(d){ tooltip.style("display", "none");});
   
@@ -576,7 +576,7 @@ d3.csv("dividend.csv", function(error, data) {
    
 });
 
-	//------------------------------------------------------------------>>>>> CHART7
+	//---------------------------------------------------------------------------------------------------------->>>>> CHART7
 	// Adds the chartDebt canvas          
 var chartDebt = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
@@ -611,7 +611,7 @@ d3.csv("debt.csv", function(error, data) {
               .style("left", d3.event.pageX - 50 + "px")
               .style("top", d3.event.pageY - 70 + "px")
               .style("display", "inline-block")
-              .html((d.jaar) + "<br>" + "€" + (d.debt));
+              .html((d.jaar) + "<br>" + "€ " + (d.debt));
         })
     		.on("mouseout", function(d){ tooltip.style("display", "none");});
   
@@ -638,7 +638,7 @@ d3.csv("debt.csv", function(error, data) {
    
 });
 	
-	//------------------------------------------------------------------>>>>> CHART8
+	//------------------------------------------------------------------------------------------------------>>>>> CHART8
 	// Adds the chartSubsidie canvas          
 var chartSubsidie = d3.select("body").append("svg")
     .attr("width", width + margin.left + margin.right)
