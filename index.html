@@ -24,18 +24,17 @@ path {
 	/* opmaak barchart*/
 .bar { fill: steelblue; }
 
-div.tooltip {	
-    position: absolute;			
-    text-align: center;			
-    width: 60px;					
-    height: 28px;					
-    padding: 2px;				
-    font: 12px sans-serif;		
-    background: lightsteelblue;	
-    border: 0px;		
-    border-radius: 8px;			
-    pointer-events: none;			
+.toolTip {
+  position: absolute;
+  display: none;
+  min-width: 80px;
+  height: auto;
+  background: none repeat scroll 0 0 #ffffff;
+  border: 1px solid #6F257F;
+  padding: 14px;
+  text-align: center;
 }
+
 	/* opmaak tabel*/
 th { text-align: left; }
 /*th, td { padding: 1px 4px;}*/
@@ -87,9 +86,7 @@ var zbg = d3.scaleOrdinal()
     .range(["#98abc5", "#8a89a6", "#7b6888", "#6b486b", "#a05d56"]); //, "#d0743c", "#ff8c00"]);
 	
 // Define the div for the tooltip
-var div = d3.select("body").append("div")	
-    .attr("class", "tooltip")				
-    .style("opacity", 0);
+var tooltip = d3.select("body").append("div").attr("class", "toolTip");
 
 	
 	//----------------------------------------------------------------------------------->>>>CHART1  
@@ -140,22 +137,7 @@ d3.csv("omzet.csv", function(error, data) {
                 return d.color = color(d.key); })
             .attr("d", omzetline(d.values));
 	    
-	    //tooltip
-	    .on("mouseover", function(d) {		
-            div.transition()		
-                .duration(200)		
-                .style("opacity", .9);		
-            div	.html(d.values)	
-                .style("left", (d3.event.pageX) + "px")		
-                .style("top", (d3.event.pageY - 28) + "px");	
-            })					
-            .on("mouseout", function(d) {		
-            div.transition()		
-                .duration(500)		
-                .style("opacity", 0);
-	   })
-
-        
+       
 	// Add the Legend ORIGINEEL
         chartOmzet.append("text")
             .attr("x", (legendSpace/2)+i*legendSpace)  // space legend
@@ -198,6 +180,7 @@ var chartProfit = d3.select("body").append("svg")
   .append("g")
     .attr("transform", 
 	  "translate(" + margin.left + "," + margin.top + ")");
+	
 	// get the data //
 d3.csv("profit.csv", function(d, i, columns) {
   for (var i = 1, n = columns.length; i < n; ++i) d[columns[i]] = +d[columns[i]];
@@ -205,6 +188,7 @@ d3.csv("profit.csv", function(d, i, columns) {
 }, function(error, data) {
   if (error) throw error;
   var keys = data.columns.slice(1);
+	
 	// Scale the range of the data
   xbg0.domain(data.map(function(d) { return d.jaar; }));
   xbg1.domain(keys).rangeRound([0, xbg0.bandwidth()]);
@@ -223,8 +207,17 @@ d3.csv("profit.csv", function(d, i, columns) {
       .attr("y", function(d) { return ybg(d.value); })
       .attr("width", xbg1.bandwidth())
       .attr("height", function(d) { return height - ybg(d.value); })
-      .attr("fill", function(d) { return zbg(d.key); });
-  
+      .attr("fill", function(d) { return zbg(d.key); })
+      .on("mousemove", function(d){
+            tooltip
+              .style("left", d3.event.pageX - 50 + "px")
+              .style("top", d3.event.pageY - 70 + "px")
+              .style("display", "inline-block")
+              .html((d.key) + "<br>" + "€" + (d.value));
+        })
+    		.on("mouseout", function(d){ tooltip.style("display", "none");});
+
+	
   	// Add the X Axis
   chartProfit.append("g")
       .attr("class", "axis")
