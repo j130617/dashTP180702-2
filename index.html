@@ -232,7 +232,7 @@ d3.csv("profit.csv", function(d, i, columns) {
               .style("left", d3.event.pageX + 10 + "px")
               .style("top", d3.event.pageY - 25 + "px")
               .style("display", "inline-block")
-              .html((d.key) + "<br>" + (d.value) * 100);
+              .html((d.key) + "<br>" + (d.value) * 100 + "%");
 	      
         })
     		.on("mouseout", function(d){ tooltip.style("display", "none");});
@@ -323,10 +323,10 @@ d3.csv("return.csv", function(d, i, columns) {
       .attr("fill", function(d) { return zbg(d.key); })
       .on("mousemove", function(d){
             tooltip
-              .style("left", d3.event.pageX - 50 + "px")
-              .style("top", d3.event.pageY - 70 + "px")
+              .style("left", d3.event.pageX + 10 + "px")
+              .style("top", d3.event.pageY - 25 + "px")
               .style("display", "inline-block")
-              .html((d.key) + "<br>" + (d.value));
+              .html((d.key) + "<br>" + (d.value) * 100 + "%");
         })
     		.on("mouseout", function(d){ tooltip.style("display", "none");});
  
@@ -411,8 +411,8 @@ d3.csv("dso.csv", function(error, data) {
       .attr("height", function(d) { return height - yb(d.dso); })
       .on("mousemove", function(d){
             tooltip
-              .style("left", d3.event.pageX - 50 + "px")
-              .style("top", d3.event.pageY - 70 + "px")
+              .style("left", d3.event.pageX + 10 + "px")
+              .style("top", d3.event.pageY - 25 + "px")
               .style("display", "inline-block")
               .html((d.jaar) + "<br>" + (d.dso) + " dagen");
         })
@@ -479,10 +479,10 @@ d3.csv("share.csv", function(d, i, columns) {
       .attr("fill", function(d) { return zbg(d.key); })
       .on("mousemove", function(d){
             tooltip
-              .style("left", d3.event.pageX - 50 + "px")
-              .style("top", d3.event.pageY - 70 + "px")
+              .style("left", d3.event.pageX + 10 + "px")
+              .style("top", d3.event.pageY - 25 + "px")
               .style("display", "inline-block")
-              .html((d.key) + "<br>" + (d.value));
+              .html((d.key) + "<br>" + (d.value) * 100 + "%");
         })
     		.on("mouseout", function(d){ tooltip.style("display", "none");});
   
@@ -566,8 +566,8 @@ d3.csv("dividend.csv", function(error, data) {
       .attr("height", function(d) { return height - yb(d.dividend); })
       .on("mousemove", function(d){
             tooltip
-              .style("left", d3.event.pageX - 50 + "px")
-              .style("top", d3.event.pageY - 70 + "px")
+              .style("left", d3.event.pageX + 10 + "px")
+              .style("top", d3.event.pageY - 25 + "px")
               .style("display", "inline-block")
               .html((d.jaar) + "<br>" + "€ " + (d.dividend));
         })
@@ -628,8 +628,8 @@ d3.csv("debt.csv", function(error, data) {
       .attr("height", function(d) { return height - yb(d.debt); })
       .on("mousemove", function(d){
             tooltip
-              .style("left", d3.event.pageX - 50 + "px")
-              .style("top", d3.event.pageY - 70 + "px")
+              .style("left", d3.event.pageX + 10 + "px")
+              .style("top", d3.event.pageY - 25 + "px")
               .style("display", "inline-block")
               .html((d.jaar) + "<br>" + "€ " + (d.debt));
         })
@@ -690,8 +690,8 @@ d3.csv("subsidie.csv", function(error, data) {
       .attr("height", function(d) { return height - yb(d.eur); })
       .on("mousemove", function(d){
             tooltip
-              .style("left", d3.event.pageX - 50 + "px")
-              .style("top", d3.event.pageY - 70 + "px")
+              .style("left", d3.event.pageX + 10 + "px")
+              .style("top", d3.event.pageY - 25 + "px")
               .style("display", "inline-block")
               .html((d.jaar) + "<br>" + "€ " + (d.eur));
         })
