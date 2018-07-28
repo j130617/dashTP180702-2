@@ -232,14 +232,8 @@ d3.csv("profit.csv", function(d, i, columns) {
               .style("left", d3.event.pageX + 10 + "px")
               .style("top", d3.event.pageY - 25 + "px")
               .style("display", "inline-block")
-              var x = d3.event.pageX, y = d3.event.pageY
-              var elements = document.querySelectorAll(':hover');
-              l = elements.length
-              l = l-1
-              elementData = elements[l].__data__;
-              var activeBar = window.activeBar = elements[l];
-	      tooltip.html((d.key) + "<br>" + (d.value) * 100);
-	      d3.select(activeBar).style('opacity', 1);	  
+              .html((d.key) + "<br>" + (d.value) * 100);
+	      
         })
     		.on("mouseout", function(d){ tooltip.style("display", "none");});
 
