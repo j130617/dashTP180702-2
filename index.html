@@ -238,7 +238,7 @@ d3.csv("profit.csv", function(d, i, columns) {
               l = l-1
               elementData = elements[l].__data__;
               var activeBar = window.activeBar = elements[l];
-	      tooltip.html((d.key) + "<br>" + (d.value));
+	      tooltip.html((d.key) + "<br>" + (d.value) * 100);
 	      d3.select(activeBar).style('opacity', 1);	  
         })
     		.on("mouseout", function(d){ tooltip.style("display", "none");});
