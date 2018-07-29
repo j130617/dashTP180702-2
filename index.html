@@ -495,7 +495,7 @@ d3.csv("share.csv", function(d, i, columns) {
 	// Add the Y Axis
   chartShare.append("g")
       .attr("class", "axis")
-      .call(d3.axisLeft(ybg).ticks(1, "%"));
+      .call(d3.axisLeft(ybg).ticks(10, "%"));
   
      	// Add a small label for the graph name.
   chartShare.append("text")
