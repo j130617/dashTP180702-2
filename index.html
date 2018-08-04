@@ -134,7 +134,7 @@ d3.csv("omzet.csv", function(error, data) {
 
     
     // Scale the range of the data
-    xl.domain(d3.extent(data, function(d) { return d.jaar; }, -1));
+    xl.domain(d3.extent(data, function(d) { return d.jaar; }),-1);
     
     yl.domain([0, d3.max(data, function(d) { return d.omzet; })]);
 
