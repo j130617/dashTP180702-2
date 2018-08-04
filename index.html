@@ -132,8 +132,11 @@ d3.csv("omzet.csv", function(error, data) {
       d.omzet = +d.omzet;
     });
 
+    var startDate = d3.extent(data, function(d) { return d.jaar; }));
+	
     // Scale the range of the data
-    xl.domain(d3.extent(data, function(d) { return d.jaar; }));
+    //xl.domain(d3.extent(data, function(d) { return d.jaar; }));
+    xl.domain(startDate, -1);
     yl.domain([0, d3.max(data, function(d) { return d.omzet; })]);
 
     // Nest the entries by symbol
